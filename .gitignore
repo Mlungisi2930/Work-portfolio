@@ -1,0 +1,22 @@
+# Node / build
+node_modules/
+build/
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+
+# Env / config
+.env
+.env.local
+
+# Avoid nesting local repo folder
+work_portfolio/
+
+# Lock / package manager
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
