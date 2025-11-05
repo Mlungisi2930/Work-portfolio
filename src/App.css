@@ -386,3 +386,235 @@ section {
     font-size: 0.85rem;
     color: var(--text-muted);
 }
+
+/* --- Styles for the Portfolio Section --- */
+
+.portfolio-grid {
+    /* Adjust grid layout for a clean display, if necessary */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Creates responsive columns */
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.project-card {
+    /* Ensures all cards have a uniform size and shadow/border for professionalism */
+    background-color: #ffffff; /* Assuming a light background for cards */
+    border-radius: 8px;
+    overflow: hidden; /* Important: Clips the image if it exceeds the container */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.project-card:hover {
+    transform: translateY(-5px); /* Subtle hover effect */
+}
+
+.project-image-placeholder {
+    /* Defines the fixed height for the image area */
+    width: 100%;
+    height: 200px; /* **CRITICAL: Set a consistent height** for all project images */
+    overflow: hidden; /* Hides parts of the image that don't fit */
+    display: flex; /* Helps center the image */
+    align-items: center;
+    justify-content: center;
+}
+
+.project-image {
+    /* This is the key styling to make the image fit properly */
+    width: 100%; /* Make the image take up the full width of the placeholder */
+    height: 100%; /* Make the image take up the full height of the placeholder */
+    
+    /* **Use object-fit to control how the image is resized** */
+    /* 'cover' scales the image to fill the container, clipping off the edges if needed (recommended for screenshots) */
+    object-fit: cover; 
+    
+    /* Alternative: 'contain' scales the image to fit entirely, adding blank space (borders) if needed */
+    /* object-fit: contain; */
+    
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.project-link {
+    display: block;
+    padding: 15px 10px 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.service-card {
+    /* Existing card styles should be here */
+    display: flex; /* Makes alignment easier */
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    text-align: center;
+    padding: 20px;
+}
+
+.service-icon-container {
+    /* Define the container size to control the icon size */
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    border-radius: 50%; /* Optional: for a circular background */
+    background-color: #e0f7fa; /* Light background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.service-icon {
+    /* Ensures the image fits inside the container */
+    width: 60%; /* Make the image itself smaller than the container */
+    height: 60%;
+    object-fit: contain;
+}
+
+/* ------------------------------------------- */
+/* --- A. Global Styles for Consistent Icons --- */
+/* ------------------------------------------- */
+
+/* Resizes and formats the skill icons in the 'My Skills' section */
+.skills-section .skill-icon-container {
+    /* Set a consistent, professional size for all skill icons */
+    width: 45px;      
+    height: 45px;     
+    
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px; /* Subtle corners for a modern look */
+    overflow: hidden; 
+    flex-shrink: 0; /* Prevents icons from squishing */
+}
+
+.skills-section .skill-icon-img {
+    /* Ensures the image fits cleanly inside the 45px container */
+    width: 80%;       
+    height: 80%;
+    object-fit: contain;
+}
+
+/* Resizes and formats the service icons in the 'My Services' section */
+.services-section .service-icon-container {
+    /* Match the size of the skill icons for uniformity */
+    width: 45px; 
+    height: 45px;
+    
+    /* Center the icon visually */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Add styling for visual contrast in the service card */
+    margin-bottom: 15px;
+    background-color: var(--primary-color, #007bff); /* Use your primary color or a default */
+    border-radius: 50%; /* Makes the container circular */
+    overflow: hidden;
+}
+
+.services-section .service-icon {
+    /* Ensures the image fits cleanly inside the 45px container */
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+    filter: invert(100%); /* Optional: Invert color if icon is black to stand out on a dark background */
+}
+
+/* ------------------------------------------- */
+/* --- B. Skills Section Layout (for alignment) --- */
+/* ------------------------------------------- */
+
+.skill-item {
+    /* Ensures content in each skill item is aligned vertically */
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+}
+
+.skill-info {
+    /* Ensures the icon and skill name are horizontally aligned */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%; 
+    margin-bottom: 10px;
+}
+
+/* Example CSS for the container */
+.about-section .profile-pic-placeholder {
+    /* Set a professional size, e.g., 200px square or an aspect ratio */
+    width: 250px; 
+    height: 250px;
+    margin: 0 auto 20px auto; /* Center the container and add spacing */
+    overflow: hidden; /* Important to contain the image */
+    border-radius: 50%; /* Optional: for a round profile picture */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: a subtle shadow */
+}
+
+/* Essential CSS for the image */
+.about-section .profile-image {
+    /* Make the image completely fill the container */
+    width: 100%;
+    height: 100%;
+    /* This property ensures the image covers the area, cropping if necessary */
+    object-fit: cover; 
+    /* Ensures the image itself is not rounded if the container is not */
+    border-radius: inherit; 
+    display: block;
+}
+
+/* Add or modify these styles in your App.css */
+
+.hero-content .hero-image-container {
+    /* Define a size suitable for your hero layout */
+    width: 350px; /* Example size */
+    height: 450px; /* Example size */
+    overflow: hidden; /* Crucial for containing the image */
+    border-radius: 8px; /* Optional: for slightly rounded corners */
+}
+
+.hero-content .hero-profile-image {
+    /* Ensure the image fills its container */
+    width: 100%;
+    height: 100%;
+    /* This makes the image cover the area, cropping as needed, which is professional */
+    object-fit: cover; 
+    display: block; 
+}
+
+/* Add these styles to your App.css */
+
+.hero-content .hero-image-container {
+    /* Define a clear size for the placeholder */
+    width: 350px; 
+    height: 450px;
+    overflow: hidden; /* Hide parts of the image that exceed the boundary */
+    border-radius: 8px; /* Optional: adds subtle rounding */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Optional: professional depth */
+}
+
+.hero-content .hero-profile-image {
+    /* Make the image fill the container completely */
+    width: 100%;
+    height: 100%;
+    /* Key for professionalism: Crops the image to fill the space without distortion */
+    object-fit: cover; 
+    display: block; 
+}
+
+/* App.css recommendation for professional spacing */
+.hero-content .hero-actions {
+    display: flex; /* Ensures buttons are side-by-side */
+    gap: 15px;    /* Use the gap property for consistent spacing */
+    margin-top: 20px; /* Adjust vertical space below the paragraph */
+}
