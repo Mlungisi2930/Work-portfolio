@@ -7,6 +7,8 @@
     --text-color: #ffffff;
     --text-muted: #aaaaaa;
     --font-family: 'Poppins', sans-serif;
+    /* Define primary color to match highlight for consistency */
+    --primary-color: var(--highlight-color); 
 }
 
 * {
@@ -78,15 +80,34 @@ section {
     border: 2px solid var(--highlight-color);
 }
 
-/* --- 1. Header & Navigation (1.PNG) --- */
+/* --- 1. Header & Navigation (Hero Section with Background Image) --- */
 .header-section {
+    position: relative;
     background-color: var(--bg-dark);
     padding: 20px 5%;
     min-height: 90vh;
-   
+    
     background-size: cover;
     background-position: center;
+    background-attachment: fixed; 
+    z-index: 1; 
 }
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 2; 
+}
+
+.navbar, .hero-content {
+    position: relative;
+    z-index: 3; 
+}
+
 
 .navbar {
     display: flex;
@@ -133,18 +154,110 @@ section {
     text-align: left;
 }
 
+/* Hero Image Container - Sets the overall space for the image and frame */
 .hero-image-container {
-    width: 350px;
-    height: 350px;
-    background-color: var(--card-dark);
-    border-radius: 50%;
-    border: 5px solid var(--highlight-color);
-    /* Add background image for profile picture here */
+    width: 350px; 
+    height: 450px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+    z-index: 4; 
+    border-radius: 8px;
 }
 
-/* --- 2. About Me Section (1.PNG) --- */
+/* 💥 FIX: Frame Styling for a Professional Look (Padding increased to 20px) 💥 */
+.hero-profile-frame {
+    position: relative; 
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+    border-radius: 8px;
+    
+    /* 1. Awesome Border using background gradient (acts as the frame) */
+    /* *** MODIFIED: Increased padding for a thicker frame border *** */
+    padding: 20px; 
+    background: linear-gradient(
+        to bottom right, 
+        var(--highlight-color) 0%, 
+        var(--highlight-color) 10%, 
+        var(--bg-dark) 50%, 
+        var(--highlight-color) 90%, 
+        var(--highlight-color) 100%
+    );
+    
+    /* 2. Professional Shadow */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--highlight-color);
+    transition: transform 0.3s ease;
+}
+
+.hero-profile-frame:hover {
+    transform: scale(1.03) rotate(1deg); /* Subtle hover effect */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px var(--highlight-color);
+}
+
+/* Profile Image - Sits inside the 'frame' padding */
+.hero-profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block; 
+    border-radius: 4px; /* Inner radius */
+    
+    /* Ensure image background is dark to match the theme */
+    background-color: var(--bg-dark); 
+}
+/* 💥 END FIX 💥 */
+
+
+/* Hero Buttons Spacing */
+.hero-content .hero-actions {
+    display: flex; 
+    gap: 15px;    
+    margin-top: 20px; 
+}
+
+/* --- Marquee Styling --- */
+.marquee-container {
+    width: 100%;
+    overflow: hidden; 
+    background-color:var(--bg-medium) ; 
+    padding: 8px 0;
+    margin-bottom: 40px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    white-space: nowrap; 
+  
+    z-index: 1; 
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marquee-scroll 20s linear infinite; 
+    white-space: nowrap;
+}
+
+.marquee-content p {
+    display: inline; 
+    font-size: 1.1em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding-right: 50px; 
+    text-transform: uppercase;
+    color:white; 
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(100%); 
+    }
+    100% {
+        transform: translateX(-100%); 
+    }
+}
+
+/* --- 2. About Me Section --- */
 .about-section {
-    background-color: var(--bg-dark);
+    background-color: black;
 }
 
 .about-grid {
@@ -153,13 +266,13 @@ section {
     gap: 50px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--bg-medium);
+    background-color: black;
     padding: 30px;
     border-radius: 10px;
 }
 
 .personal-summary {
-    background-color: #00cccc; /* Teal background for the left card */
+    background-color: var(--highlight-color); 
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -167,7 +280,7 @@ section {
 }
 
 .personal-summary h3 {
-    color: var(--bg-dark);
+    color:  rgba(30, 41, 59, 0.9);
 }
 
 .profile-pic-placeholder {
@@ -177,6 +290,12 @@ section {
     border-radius: 50%;
     margin: 0 auto 15px;
     border: 5px solid white;
+    overflow: hidden;
+}
+.profile-pic-placeholder .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .details {
@@ -204,7 +323,7 @@ section {
     gap: 30px;
 }
 
-/* --- 3. My Skills Section (2.PNG) --- */
+/* --- 3. My Skills Section --- */
 .skills-section {
     background-color: var(--bg-dark);
 }
@@ -219,15 +338,16 @@ section {
 
 .skill-item {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column; 
+    align-items: flex-start; 
 }
 
 .skill-info {
     display: flex;
     align-items: center;
-    width: 40%;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .skill-name {
@@ -238,6 +358,7 @@ section {
 .skill-percentage {
     font-weight: 600;
     color: var(--highlight-color);
+    margin-left: auto; 
 }
 
 .skill-bar-container {
@@ -245,7 +366,6 @@ section {
     height: 10px;
     border-radius: 5px;
     width: 100%;
-    margin-top: 5px;
 }
 
 .skill-bar-fill {
@@ -255,9 +375,32 @@ section {
     transition: width 1s ease-in-out;
 }
 
-/* --- 4. My Services Section (2.PNG) --- */
-.services-section {
+/* Skill Icon Styles (Circular/Professional) */
+.skills-section .skill-icon-container {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%; 
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid var(--highlight-color); 
     background-color: var(--bg-medium);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-right: 15px; 
+    flex-shrink: 0;
+}
+
+.skills-section .skill-icon-img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain; 
+}
+
+
+/* --- 4. My Services Section --- */
+.services-section {
+    background-color: black;
 }
 
 .services-grid {
@@ -267,14 +410,18 @@ section {
 }
 
 .service-card {
-    background-color: var(--card-dark);
+    background-color:rgba(30, 41, 59, 0.9);
     padding: 30px 20px;
     border-radius: 10px;
     text-align: center;
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    color: white;
 }
 
 .service-card h3 {
-    color: var(--highlight-color);
+    color: white;
     margin-bottom: 15px;
 }
 
@@ -288,25 +435,52 @@ section {
     margin-top: 20px;
 }
 
-/* --- 5. My Portfolio Section (3.PNG) --- */
+/* Service Icon Styles */
+.service-icon-container {
+    width: 45px; 
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: var(--bg-dark); 
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.service-icon {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+    filter: invert(100%); 
+}
+
+/* --- 5. My Portfolio Section --- */
 .portfolio-section {
-    background-color: var(--bg-dark);
+    background-color: black;
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 20px 0;
 }
 
 .project-card {
-    background-color: var(--card-dark);
+    background-color: rgba(30, 41, 59, 0.9);
     border-radius: 10px;
     overflow: hidden;
     text-align: center;
     padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px); 
 }
 
 .project-image-placeholder {
@@ -314,11 +488,27 @@ section {
     background-color: var(--bg-medium);
     margin-bottom: 10px;
     border-radius: 5px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.05);
 }
 
 .project-link {
     font-weight: 600;
     color: var(--highlight-color);
+    display: block;
+    padding: 15px 10px 5px;
+    font-size: 1.1em;
 }
 
 .project-url {
@@ -327,7 +517,7 @@ section {
     margin-top: 5px;
 }
 
-/* --- 6. Contact Me Section (3.PNG) --- */
+/* --- 6. Contact Me Section --- */
 .contact-content-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -359,16 +549,14 @@ section {
 .contact-form textarea {
     width: 100%;
     padding: 15px;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.1); 
     border-radius: 5px;
     background-color: var(--card-dark);
     color: var(--text-color);
     font-family: inherit;
-    /* Styles matching the input fields in 3.PNG */
-    border: 1px solid rgba(255, 255, 255, 0.1); 
 }
 
-.contact-form input:nth-child(5), /* Email */
+.contact-form input:nth-child(5), 
 .contact-form textarea {
     grid-column: 1 / 3; 
 }
@@ -387,234 +575,339 @@ section {
     color: var(--text-muted);
 }
 
-/* --- Styles for the Portfolio Section --- */
-
-.portfolio-grid {
-    /* Adjust grid layout for a clean display, if necessary */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Creates responsive columns */
-    gap: 30px;
-    padding: 20px 0;
-}
-
-.project-card {
-    /* Ensures all cards have a uniform size and shadow/border for professionalism */
-    background-color: #ffffff; /* Assuming a light background for cards */
-    border-radius: 8px;
-    overflow: hidden; /* Important: Clips the image if it exceeds the container */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* --- Social Icons --- */
+.social-icons img {
     transition: transform 0.3s ease;
-    text-align: center;
 }
 
-.project-card:hover {
-    transform: translateY(-5px); /* Subtle hover effect */
+.social-icons a:hover img {
+    transform: translateY(-3px);
 }
 
-.project-image-placeholder {
-    /* Defines the fixed height for the image area */
-    width: 100%;
-    height: 200px; /* **CRITICAL: Set a consistent height** for all project images */
-    overflow: hidden; /* Hides parts of the image that don't fit */
-    display: flex; /* Helps center the image */
-    align-items: center;
-    justify-content: center;
+/* ================================================= */
+/* 🚀 1. Mobile Menu Toggle Styles */
+/* ================================================= */
+
+/* Hide the toggle button by default (desktop view) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+    z-index: 10; /* Ensure it's above other content */
 }
 
-.project-image {
-    /* This is the key styling to make the image fit properly */
-    width: 100%; /* Make the image take up the full width of the placeholder */
-    height: 100%; /* Make the image take up the full height of the placeholder */
-    
-    /* **Use object-fit to control how the image is resized** */
-    /* 'cover' scales the image to fill the container, clipping off the edges if needed (recommended for screenshots) */
-    object-fit: cover; 
-    
-    /* Alternative: 'contain' scales the image to fit entirely, adding blank space (borders) if needed */
-    /* object-fit: contain; */
-    
-    transition: transform 0.5s ease;
-}
-
-.project-card:hover .project-image {
-    transform: scale(1.05); /* Zoom effect on hover */
-}
-
-.project-link {
+/* Style the hamburger bars */
+.menu-toggle .bar {
     display: block;
-    padding: 15px 10px 5px;
-    font-size: 1.1em;
-    font-weight: bold;
-    text-decoration: none;
-    color: #333;
+    width: 25px;
+    height: 3px;
+    background-color: var(--highlight-color, #00bfff); /* Use your highlight color */
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
 }
 
-.service-card {
-    /* Existing card styles should be here */
-    display: flex; /* Makes alignment easier */
-    flex-direction: column;
-    align-items: center; /* Centers content horizontally */
-    text-align: center;
+/* Animation for the X (optional, but looks better) */
+.menu-toggle.open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/* ================================================= */
+/* 📱 2. General Mobile Responsiveness (Media Queries) */
+/* ================================================= */
+
+@media (max-width: 992px) {
+    /* --- Navigation Bar Adjustments --- */
+    .navbar {
+        justify-content: space-between;
+        padding: 30px 20px;
+        display: none;
+        
+    }
+
+    /* Show the toggle button on smaller screens */
+    .menu-toggle {
+        display: block;
+        
+    }
+
+    /* Hide the desktop nav links by default */
+    .nav-links {
+        display: none;
+       
+        position: absolute;
+        top: 100px; /* Adjust based on your header/nav height */
+        left: 0;
+        width: 105%;
+        background-color: rgba(0, 0, 0, 0.9); /* Dark overlay for menu background */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 50;
+    }
+
+    /* When menu is open, display the links */
+    .nav-links.open {
+        display: flex;
+        visibility: hidden;
+    }
+
+    .nav-links li {
+        text-align: center;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a {
+        padding: 15px 20px;
+        display: block;
+    }
+
+    /* --- Hero Section Adjustments (Header) --- */
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    .hero-text {
+        order: 2; /* Move text below image on mobile */
+        margin-top: 30px;
+    }
+
+    .hero-image-container {
+        order: 1; /* Move image above text on mobile */
+        margin: 0 auto;
+        width: 80%; /* Limit size on mobile */
+        max-width: 300px;
+    }
+
+    /* --- About Section Adjustments --- */
+    .about-grid {
+        grid-template-columns: 1fr; /* Stack columns */
+        gap: 30px;
+    }
+
+    .personal-summary {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .about-col.details {
+        padding: 0 20px;
+    }
+
+    .info-block.half-grid {
+        grid-template-columns: 1fr; /* Stack half-grid items */
+    }
+
+    /* --- Skills & Services Adjustments --- */
+    .skills-grid,
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    /* --- Portfolio Adjustments --- */
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    /* --- Contact Section Adjustments --- */
+    .contact-content-grid {
+        grid-template-columns: 1fr; /* Stack columns */
+        padding: 0 20px;
+    }
+    
+    .contact-form {
+        margin-top: 30px;
+    }
+}
+
+/* Additional adjustments for very small screens (e.g., small phones) */
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.2em;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 10px !important;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* --- Skills Section Star Background Styling --- */
+
+/* 1. Set the skills section as the positioning context for the stars */
+.skills-with-stars {
+    position: relative; /* Crucial for positioning the absolute canvas child */
+    overflow: hidden; /* Ensures stars don't spill out */
+    background-color: #111827; /* Dark background to see the stars */
+    padding: 100px 0; /* Adjust padding as needed */
+}
+
+/* 2. Style the Canvas element for full background coverage */
+.star-background-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Place it behind the content */
+    opacity: 0.6; /* Make the stars slightly transparent */
+    /* Ensure the canvas doesn't receive mouse events */
+    pointer-events: none; 
+}
+
+/* 3. Wrap the main content and bring it above the background */
+.skills-content-wrapper {
+    position: relative;
+    z-index: 5; /* Place content above the stars (z-index: 1) */
+    /* Ensure content takes up necessary space and is centered (if needed) */
+    width: 100%;
+    max-width: 1200px; /* Adjust to match your overall container width */
+    margin: 0 auto;
+    /* Ensure the text is visible over the dark background */
+    color: white; 
+}
+
+/* 4. Ensure skill items have a solid background for readability */
+.skills-content-wrapper .skill-item {
+    background-color: rgba(30, 41, 59, 0.9); /* Darker, semi-transparent background for readability */
     padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.service-icon-container {
-    /* Define the container size to control the icon size */
-    width: 80px;
-    height: 80px;
-    margin-bottom: 15px;
-    border-radius: 50%; /* Optional: for a circular background */
-    background-color: #e0f7fa; /* Light background color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Make sure titles and text are clearly visible */
+.skills-content-wrapper .section-title {
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-.service-icon {
-    /* Ensures the image fits inside the container */
-    width: 60%; /* Make the image itself smaller than the container */
-    height: 60%;
-    object-fit: contain;
+/* 1. Set the contact section as the positioning context for the stars */
+.contact-with-stars {
+    position: relative; /* Crucial for positioning the absolute canvas child */
+    overflow: hidden; /* Ensures stars don't spill out */
+    background-color: #111827; /* Dark background to see the stars */
+    padding: 100px 0; /* Adjust padding as needed */
 }
 
-/* ------------------------------------------- */
-/* --- A. Global Styles for Consistent Icons --- */
-/* ------------------------------------------- */
-
-/* Resizes and formats the skill icons in the 'My Skills' section */
-.skills-section .skill-icon-container {
-    /* Set a consistent, professional size for all skill icons */
-    width: 45px;      
-    height: 45px;     
-    
-    margin-right: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px; /* Subtle corners for a modern look */
-    overflow: hidden; 
-    flex-shrink: 0; /* Prevents icons from squishing */
+/* 2. Style the Content Wrapper for Z-index control */
+.contact-content-wrapper {
+    position: relative;
+    z-index: 5; /* Place content ABOVE the stars (z-index: 1) */
+    width: 100%;
+    max-width: 1200px; /* Adjust to match your overall container width */
+    margin: 0 auto;
+    color: white; /* Ensure text is visible */
 }
 
-.skills-section .skill-icon-img {
-    /* Ensures the image fits cleanly inside the 45px container */
-    width: 80%;       
-    height: 80%;
-    object-fit: contain;
-}
-
-/* Resizes and formats the service icons in the 'My Services' section */
-.services-section .service-icon-container {
-    /* Match the size of the skill icons for uniformity */
-    width: 45px; 
-    height: 45px;
-    
-    /* Center the icon visually */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* Add styling for visual contrast in the service card */
-    margin-bottom: 15px;
-    background-color: var(--primary-color, #007bff); /* Use your primary color or a default */
-    border-radius: 50%; /* Makes the container circular */
-    overflow: hidden;
-}
-
-.services-section .service-icon {
-    /* Ensures the image fits cleanly inside the 45px container */
-    width: 65%;
-    height: 65%;
-    object-fit: contain;
-    filter: invert(100%); /* Optional: Invert color if icon is black to stand out on a dark background */
-}
-
-/* ------------------------------------------- */
-/* --- B. Skills Section Layout (for alignment) --- */
-/* ------------------------------------------- */
-
-.skill-item {
-    /* Ensures content in each skill item is aligned vertically */
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    text-align: center;
-}
-
-.skill-info {
-    /* Ensures the icon and skill name are horizontally aligned */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%; 
-    margin-bottom: 10px;
-}
-
-/* Example CSS for the container */
-.about-section .profile-pic-placeholder {
-    /* Set a professional size, e.g., 200px square or an aspect ratio */
-    width: 250px; 
-    height: 250px;
-    margin: 0 auto 20px auto; /* Center the container and add spacing */
-    overflow: hidden; /* Important to contain the image */
-    border-radius: 50%; /* Optional: for a round profile picture */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: a subtle shadow */
-}
-
-/* Essential CSS for the image */
-.about-section .profile-image {
-    /* Make the image completely fill the container */
+/* 3. Re-use the Star Background Canvas Styling */
+.star-background-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    /* This property ensures the image covers the area, cropping if necessary */
-    object-fit: cover; 
-    /* Ensures the image itself is not rounded if the container is not */
-    border-radius: inherit; 
-    display: block;
+    z-index: 1; /* Place it behind the content */
+    opacity: 0.6; /* Keeps the effect subtle */
+    pointer-events: none; 
+}
+/* Target the information block */
+.contact-with-stars .contact-info-block {
+    background-color: rgba(30, 41, 59, 0.9); /* Dark background for info */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: white;
 }
 
-/* Add or modify these styles in your App.css */
-
-.hero-content .hero-image-container {
-    /* Define a size suitable for your hero layout */
-    width: 350px; /* Example size */
-    height: 450px; /* Example size */
-    overflow: hidden; /* Crucial for containing the image */
-    border-radius: 8px; /* Optional: for slightly rounded corners */
+/* Target the form */
+.contact-with-stars .contact-form {
+    background-color: rgba(30, 41, 59, 0.9); /* Dark background for the form */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-.hero-content .hero-profile-image {
-    /* Ensure the image fills its container */
-    width: 100%;
-    height: 100%;
-    /* This makes the image cover the area, cropping as needed, which is professional */
-    object-fit: cover; 
-    display: block; 
+/* Ensure form inputs are readable */
+.contact-with-stars .contact-form input,
+.contact-with-stars .contact-form textarea {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent input fields */
+    border: 1px solid #4a5568;
+    color: white;
+}
+.contact-with-stars .contact-form input::placeholder,
+.contact-with-stars .contact-form textarea::placeholder {
+    color: #a0aec0;
 }
 
-/* Add these styles to your App.css */
 
-.hero-content .hero-image-container {
-    /* Define a clear size for the placeholder */
-    width: 350px; 
-    height: 450px;
-    overflow: hidden; /* Hide parts of the image that exceed the boundary */
-    border-radius: 8px; /* Optional: adds subtle rounding */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Optional: professional depth */
+/* --- ABOUT SECTION CARD STYLING --- */
+
+/* Apply the requested dark, semi-transparent color to the targeted cards */
+.about-section .dark-info-block {
+    background-color: rgba(30, 41, 59, 0.9); 
+    color: white; /* Ensure text is readable against the dark background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px; 
 }
 
-.hero-content .hero-profile-image {
-    /* Make the image fill the container completely */
-    width: 100%;
-    height: 100%;
-    /* Key for professionalism: Crops the image to fill the space without distortion */
-    object-fit: cover; 
-    display: block; 
+/* ================================================= */
+/* --- DESKTOP NAV ALIGNMENT FIX (App.css) --- */
+/* ================================================= */
+
+.navbar {
+    display: flex;
+    /* Keeps logo on the far left, allowing links to take up the middle space */
+    justify-content: space-between; 
+    align-items: center;
+    padding: 15px 5%;
+    /* ... other existing navbar styles ... */
 }
 
-/* App.css recommendation for professional spacing */
-.hero-content .hero-actions {
-    display: flex; /* Ensures buttons are side-by-side */
-    gap: 15px;    /* Use the gap property for consistent spacing */
-    margin-top: 20px; /* Adjust vertical space below the paragraph */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    
+    /* 💥 CRUCIAL CENTERING FIX FOR DESKTOP 💥 */
+    flex-grow: 1;           /* Makes the links container take all available space */
+    justify-content: center; /* Centers the list items within that space */
+}
+
+
+/* --- MOBILE MENU ALIGNMENT (from previous request, ensured for layering) --- */
+
+@media (max-width: 768px) {
+    /* On mobile, we still want the menu items left-aligned within the slide-out bar */
+    .nav-links.open {
+        /* ... existing mobile styles ... */
+        transform: translateX(0); 
+        /* The flex-grow: 1; and justify-content: center; from above is overridden by 
+           flex-direction: column; and padding in the mobile styles. */
+    }
 }
